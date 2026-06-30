@@ -1,0 +1,5 @@
+# DecodeLabs Secure Cipher Tool
+
+Password-based XOR encryption tool using SHA-256 key derivation.
+
+## Usage
