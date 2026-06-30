@@ -1,0 +1,70 @@
+import hashlib
+import base64
+
+
+def derive_key(password, length):
+    key = b""
+    counter = 0
+    while len(key) < length:
+        key += hashlib.sha256((password + str(counter)).encode()).digest()
+        counter += 1
+    return key[:length]
+
+
+def encrypt(text, password):
+    text_bytes = text.encode('utf-8')
+    key = derive_key(password, len(text_bytes))
+    encrypted_bytes = bytes([b ^ k for b, k in zip(text_bytes, key)])
+    return base64.b64encode(encrypted_bytes).decode('utf-8')
+
+
+def decrypt(encrypted_text, password):
+    try:
+        encrypted_bytes = base64.b64decode(encrypted_text.encode('utf-8'))
+        key = derive_key(password, len(encrypted_bytes))
+        decrypted_bytes = bytes([b ^ k for b, k in zip(encrypted_bytes, key)])
+        return decrypted_bytes.decode('utf-8')
+    except Exception:
+        return None
+
+
+def main():
+    print("=" * 50)
+    print("   DecodeLabs - Secure Password Cipher Tool")
+    print("=" * 50)
+
+    while True:
+        print("\n1. Encrypt Message")
+        print("2. Decrypt Message")
+        print("3. Exit")
+        choice = input("\nChoose an option (1-3): ").strip()
+
+        if choice == "1":
+            text = input("\nEnter the text to encrypt: ")
+            password = input("Set a password/key (kuch bhi, jitna lamba utna secure): ")
+            if password == "":
+                print("❌ Password khali nahi ho sakta.")
+                continue
+            result = encrypt(text, password)
+            print(f"\nEncrypted Text : {result}")
+            print("(Ye text apne dost ko bhej do, password alag se / kisi safe tarike se batao)")
+
+        elif choice == "2":
+            cipher_text = input("\nEnter the encrypted text: ")
+            password = input("Enter the password/key: ")
+            result = decrypt(cipher_text, password)
+            if result is None:
+                print("\n❌ Decryption Failed: Galat password ya corrupted text.")
+            else:
+                print(f"\nDecrypted Text : {result}")
+
+        elif choice == "3":
+            print("\nExiting...")
+            break
+
+        else:
+            print("\n❌ Invalid choice.")
+
+
+if __name__ == "__main__":
+    main()
