@@ -62,7 +62,7 @@
 
 # # --- INTERACTIVE USER INTERFACE (IPO Implementation) ---
 # if __name__ == "__main__":
-#     print("=== DecodeLabs Cryptographic Engine ===")
+#     print("=== Saurabh Cryptographic Engine ===")
     
 #     # 1. Input Logic: Take data and key from user
 #     user_message = input("Enter your secret message: ")
@@ -93,7 +93,7 @@
 # Main.code
 # ============================================
 # Project 2: Basic Encryption & Decryption
-# Caesar Cipher | DecodeLabs Cybersecurity
+# Caesar Cipher | Saurabh Pandey
 # ============================================
 
 def encrypt(text, shift):
