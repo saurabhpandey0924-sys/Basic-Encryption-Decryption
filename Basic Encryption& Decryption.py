@@ -128,7 +128,7 @@ def decrypt(text, shift):
 
 def main():
     print("=" * 50)
-    print("   DecodeLabs - Caesar Cipher Tool")
+    print("   Saurabh - Caesar Cipher Tool")
     print("=" * 50)
 
     # INPUT
